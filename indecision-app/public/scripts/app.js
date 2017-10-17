@@ -1,100 +1,93 @@
-'use strict';
+"use strict";
 
-console.log('app.js is running');
+console.log("app.js is running");
 
-'use strict';
+"use strict";
 
 var app = {
-    title: 'Title',
-    subtitle: 'Subtitle',
-    options: ['One', 'Two']
+  title: "Title",
+  subtitle: "Subtitle",
+  options: []
 };
 
-var template = React.createElement(
-    'div',
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
+  var option = e.target.elements.option.value;
+  if (option) {
+    console.log(option);
+    app.options.push(option);
+    e.target.elements.option.value = "";
+    renderApp();
+  }
+};
+
+var removeAll = function removeAll() {
+  app.options = [];
+  renderApp();
+};
+
+var onMakeDecision = function onMakeDecision() {
+  var randomNum = Math.floor(Math.random() * app.options.length);
+  var option = app.options[randomNum];
+  alert(option);
+};
+
+var appRoot = document.getElementById("app");
+
+var numbers = [105, 101, 1000];
+
+var renderApp = function renderApp() {
+  var template = React.createElement(
+    "div",
     null,
     React.createElement(
-        'h1',
-        { id: 'first-react-element' },
-        app.title
+      "h1",
+      { id: "first-react-element" },
+      app.title
     ),
     app.subtitle && React.createElement(
-        'p',
-        null,
-        app.subtitle
+      "p",
+      null,
+      app.subtitle
     ),
     React.createElement(
-        'p',
-        null,
-        app.options.length > 0 ? 'Here are your options' : 'No options'
+      "p",
+      null,
+      app.options.length > 0 ? "Here are your options" : "No options"
     ),
     React.createElement(
-        'ol',
+      "button",
+      { disabled: app.options.length === 0, onClick: onMakeDecision },
+      "What should I do?"
+    ),
+    React.createElement(
+      "button",
+      { onClick: removeAll },
+      "Remove All"
+    ),
+    React.createElement(
+      "ol",
+      null,
+      app.options.map(function (option) {
+        return React.createElement(
+          "li",
+          { key: option },
+          option
+        );
+      })
+    ),
+    React.createElement(
+      "form",
+      { onSubmit: onFormSubmit },
+      React.createElement("input", { type: "text", name: "option" }),
+      React.createElement(
+        "button",
         null,
-        React.createElement(
-            'li',
-            null,
-            'here'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'we'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'go'
-        )
+        "Add Option"
+      )
     )
-);
-
-var count = 0;
-var addOne = function addOne() {
-    count++;
-    renderCounterApp();
+  );
+  ReactDOM.render(template, appRoot);
 };
 
-var minusOne = function minusOne() {
-    count--;
-    renderCounterApp();
-};
-
-var reset = function reset() {
-    count = 0;
-    renderCounterApp();
-};
-
-var appRoot = document.getElementById('app');
-
-var renderCounterApp = function renderCounterApp() {
-    var templateTwo = React.createElement(
-        'div',
-        null,
-        React.createElement(
-            'h1',
-            null,
-            'Count: ',
-            count
-        ),
-        React.createElement(
-            'button',
-            { onClick: addOne },
-            '+1'
-        ),
-        React.createElement(
-            'button',
-            { onClick: minusOne },
-            '-1'
-        ),
-        React.createElement(
-            'button',
-            { onClick: reset },
-            'Reset'
-        )
-    );
-
-    ReactDOM.render(templateTwo, appRoot);
-};
-
-renderCounterApp();
+renderApp();
