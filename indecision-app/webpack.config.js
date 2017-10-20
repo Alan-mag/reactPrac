@@ -1,6 +1,6 @@
 const path = require('path');
-// entry -> output
 
+// entry -> output
 module.exports = {
     entry: "./src/app.js",
     output: {

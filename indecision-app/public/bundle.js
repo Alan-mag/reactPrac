@@ -65,9 +65,78 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-console.log('app.js is running');
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__person__ = __webpack_require__(2);
+// import './utils';
+ // defaults not in curly braces
+
+
+console.log('app.js is running!');
+
+// console.log(square(4));
+// console.log(add(400, 11));
+// console.log(subtract(100, 25));
+
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["c" /* isAdult */](20));
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["a" /* canDrink */](20));
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["b" /* default */](77));
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+console.log('utils.js is running');
+
+const square = (a) => {
+    return a * a;
+};
+/* unused harmony export square */
+
+
+const add = (a,b) => a + b;
+/* unused harmony export add */
+
+
+const subtract = (a, b) => a - b;
+
+/* unused harmony default export */ var _unused_webpack_default_export = (subtract);
+
+// export default (a, b) => a - b; // another example without func name
+
+//export { square, add, subtract as default };
+
+// exports - default export and named exports
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return isAdult; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return canDrink; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isSeniorCitizen; });
+// person.js
+// named export isAdult
+
+const isAdult = (age) => {
+    return (age >= 18) ? "They are an adult." : "They are not an adult.";
+};
+
+const canDrink = (age) => {
+    return (age >= 21) ? "They can drink." : "They cannot drink.";
+};
+
+const isSeniorCitizen = (age) => { // note name difference from app.js
+    return (age >= 65) ? "They are a senior." : "They are not a senior.";
+};
+
+
 
 /***/ })
 /******/ ]);
