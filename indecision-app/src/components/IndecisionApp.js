@@ -6,15 +6,35 @@ import Header from "./Header";
 import Options from "./Options";
 
 class IndecisionApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-    this.handlePick = this.handlePick.bind(this);
-    this.handleAddOption = this.handleAddOption.bind(this);
-    this.handleDeleteOption = this.handleDeleteOption.bind(this);
-    this.state = {
-      options: []
-    };
+  state = {
+    options: []
+  }
+  handleDeleteOptions = () => {
+    this.setState(() => ({ options: [] }));
+    // const num = () => ({}) // to return obj instead of func body, wrap in parenthesis
+  }
+  handleDeleteOption = (optionToRemove) => {
+    this.setState(prevState => ({
+      options: prevState.options.filter(option => {
+        return optionToRemove !== option;
+      })
+    }));
+  }
+  handlePick = () => {
+    this.setState(() => {
+      const randomNum = Math.floor(Math.random() * this.state.options.length);
+      const option = this.state.options[randomNum];
+      alert(option);
+    });
+  }
+  handleAddOption = (option) => {
+    if (!option) {
+      return "Enter valid task item.";
+    } else if (this.state.options.indexOf(option) > -1) {
+      return "You already have this on the list.";
+    }
+
+    this.setState(prevState => ({ options: prevState.options.concat(option) }));
   }
   componentDidMount() {
     try {
@@ -36,33 +56,6 @@ class IndecisionApp extends React.Component {
   }
   componentWillUnmount() {
     console.log("componentWillUnmount");
-  }
-  handleDeleteOptions() {
-    this.setState(() => ({ options: [] }));
-    // const num = () => ({}) // to return obj instead of func body, wrap in parenthesis
-  }
-  handleDeleteOption(optionToRemove) {
-    this.setState(prevState => ({
-      options: prevState.options.filter(option => {
-        return optionToRemove !== option;
-      })
-    }));
-  }
-  handlePick() {
-    this.setState(() => {
-      const randomNum = Math.floor(Math.random() * this.state.options.length);
-      const option = this.state.options[randomNum];
-      alert(option);
-    });
-  }
-  handleAddOption(option) {
-    if (!option) {
-      return "Enter valid task item.";
-    } else if (this.state.options.indexOf(option) > -1) {
-      return "You already have this on the list.";
-    }
-
-    this.setState(prevState => ({ options: prevState.options.concat(option) }));
   }
   render() {
     const subtitle = "Notepad for choosing what you should do next.";
